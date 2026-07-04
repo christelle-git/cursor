@@ -1,6 +1,10 @@
 # PROMPT MAÎTRE — reproduction à l'identique du petit robot (v4)
 
-**Mode d'emploi : copier tout le bloc ci-dessous, remplacer uniquement la ligne `[SCÈNE]`, et joindre si possible l'image `assets/illustrations/robot_v4_FINAL_fiche_personnage.png` en référence.** Ne jamais reformuler la description du robot : c'est sa carte d'identité, elle doit rester identique au mot près d'une génération à l'autre.
+**Mode d'emploi — les 3 règles, toutes obligatoires :**
+
+1. **TOUJOURS joindre l'image `assets/illustrations/robot_v4_FINAL_fiche_personnage.png` en référence.** Le prompt seul ne suffit pas (testé : sans la fiche, le générateur produit un cousin, pas le robot). C'est la fiche qui porte l'identité visuelle ; le prompt verrouille les détails et interdit les dérives.
+2. **Copier le bloc ci-dessous sans jamais reformuler la description du robot** — identique au mot près d'une génération à l'autre.
+3. **Ne remplacer que la ligne `[SCÈNE]`.**
 
 ---
 
