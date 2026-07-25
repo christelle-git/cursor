@@ -18,6 +18,7 @@ export async function analyzeSource(jobId: string) {
   const thumbs = await extractThumbnails(sourcePath, jobId, 4);
 
   await updateJob(jobId, {
+    status: "queued",
     meta,
     thumbnails: thumbs,
     progress: 30,
