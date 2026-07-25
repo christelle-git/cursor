@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MotionForge — Génération vidéo IA</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+</head>
+<body>
+  <div class="aurora"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">◈</span>
+      <div>
+        <h1>MotionForge</h1>
+        <p>Génération vidéo IA à partir d'une vidéo existante</p>
+      </div>
+    </div>
+    <div class="status" id="engineStatus">Initialisation…</div>
+  </header>
+
+  <main class="layout">
+    <!-- Colonne gauche : configuration -->
+    <section class="panel config">
+      <!-- Étape 1 : source -->
+      <div class="card">
+        <h2><span class="step">1</span> Vidéo source</h2>
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" accept="video/*" hidden />
+          <div class="dz-empty" id="dzEmpty">
+            <span class="dz-icon">⬆</span>
+            <strong>Glissez une vidéo ici</strong>
+            <span class="muted">ou cliquez pour parcourir · MP4, MOV, WEBM…</span>
+          </div>
+          <video class="dz-preview" id="srcPreview" muted playsinline controls hidden></video>
+        </label>
+        <p class="filemeta" id="fileMeta"></p>
+      </div>
+
+      <!-- Étape 2 : moteur + prompt -->
+      <div class="card">
+        <h2><span class="step">2</span> Moteur & intention</h2>
+        <label class="field">
+          <span>Moteur de génération</span>
+          <select id="provider"></select>
+        </label>
+        <p class="muted" id="providerHint"></p>
+        <label class="field">
+          <span>Prompt (guide créatif)</span>
+          <textarea id="prompt" rows="2" placeholder="ex. ambiance cinématique néon, pluie, reflets…"></textarea>
+        </label>
+        <label class="field" id="negField">
+          <span>Prompt négatif <em class="muted">(Replicate)</em></span>
+          <input type="text" id="negativePrompt" placeholder="ex. flou, artefacts, texte" />
+        </label>
+      </div>
+
+      <!-- Étape 3 : style -->
+      <div class="card">
+        <h2><span class="step">3</span> Style visuel</h2>
+        <div class="chips" id="styleChips"></div>
+        <p class="muted" id="styleDesc"></p>
+      </div>
+
+      <!-- Étape 4 : mouvement & réglages -->
+      <div class="card">
+        <h2><span class="step">4</span> Mouvement & réglages</h2>
+        <label class="field">
+          <span>Effet de mouvement</span>
+          <select id="motion"></select>
+        </label>
+        <label class="field">
+          <span>Intensité du style · <b id="intensityVal">1.0</b></span>
+          <input type="range" id="intensity" min="0" max="2" step="0.1" value="1" />
+        </label>
+        <label class="field">
+          <span>Vitesse · <b id="speedVal">1.0×</b></span>
+          <input type="range" id="speed" min="0.25" max="4" step="0.25" value="1" />
+        </label>
+        <div class="row">
+          <label class="field">
+            <span>FPS de sortie</span>
+            <select id="fps">
+              <option value="">Conserver</option>
+              <option value="24">24</option>
+              <option value="30">30</option>
+              <option value="60">60</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Résolution max</span>
+            <select id="maxHeight">
+              <option value="">Conserver</option>
+              <option value="480">480p</option>
+              <option value="720">720p</option>
+              <option value="1080">1080p</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <button class="generate" id="generateBtn" disabled>
+        <span>Générer la vidéo</span>
+      </button>
+      <p class="hint" id="formHint">Chargez d'abord une vidéo source.</p>
+    </section>
+
+    <!-- Colonne droite : résultat -->
+    <section class="panel result">
+      <div class="card result-card">
+        <h2>Résultat</h2>
+        <div class="stage" id="stage">
+          <div class="stage-idle" id="stageIdle">
+            <span class="pulse">✦</span>
+            <p>Votre vidéo générée apparaîtra ici.</p>
+          </div>
+          <div class="stage-progress" id="stageProgress" hidden>
+            <div class="ring"><span id="progressPct">0%</span></div>
+            <p id="progressMsg">Préparation…</p>
+            <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+          </div>
+          <video class="stage-video" id="resultVideo" controls playsinline hidden></video>
+          <div class="stage-error" id="stageError" hidden>
+            <span>⚠</span>
+            <p id="errorMsg"></p>
+          </div>
+        </div>
+        <div class="result-actions" id="resultActions" hidden>
+          <a class="btn download" id="downloadLink" download>Télécharger le MP4</a>
+          <button class="btn ghost" id="againBtn">Nouvelle génération</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>MotionForge · moteur local (ffmpeg) + Replicate · vidéo-à-vidéo</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
