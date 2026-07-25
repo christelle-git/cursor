@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+*.egg-info/
+
+# Backend runtime storage (vidéos uploadées/générées, jamais versionnées)
+backend/storage/uploads/*
+backend/storage/outputs/*
+!backend/storage/uploads/.gitkeep
+!backend/storage/outputs/.gitkeep
+backend/.env
+
+# Node / frontend (voir aussi frontend/.gitignore)
+node_modules/
+
+# Éditeurs / OS
+.DS_Store
+*.swp
