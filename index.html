@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MORPH — Studio créatif de transformation vidéo par intelligence artificielle."
+    />
+    <title>MORPH — AI Video Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Accueil MORPH">
+          <span class="brand-mark">
+            <i></i><i></i><i></i>
+          </span>
+          <span>MORPH</span>
+          <small>AI VIDEO</small>
+        </a>
+
+        <nav class="main-nav" aria-label="Navigation principale">
+          <a class="active" href="#">Studio</a>
+          <a href="#projets">Mes projets</a>
+          <a href="#explorer">Explorer</a>
+        </nav>
+
+        <div class="account-area">
+          <div class="credits"><span class="credit-dot"></span><b>428</b> crédits</div>
+          <button class="upgrade-button">Passer Pro</button>
+          <button class="avatar" aria-label="Ouvrir le profil">LM</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="eyebrow"><span></span> VIDEO TO VIDEO</div>
+          <h1>Transformez le réel.<br /><em>Imaginez la suite.</em></h1>
+          <p>
+            Importez votre vidéo, décrivez votre vision.<br />
+            Notre IA réinvente chaque image.
+          </p>
+        </section>
+
+        <section class="studio-card">
+          <div class="stepper" aria-label="Étapes du projet">
+            <div class="step active">
+              <span>01</span>
+              <div><b>Source</b><small>Votre vidéo</small></div>
+            </div>
+            <i></i>
+            <div class="step">
+              <span>02</span>
+              <div><b>Direction</b><small>Votre vision</small></div>
+            </div>
+            <i></i>
+            <div class="step">
+              <span>03</span>
+              <div><b>Génération</b><small>Votre création</small></div>
+            </div>
+          </div>
+
+          <div class="workspace-grid">
+            <section class="source-panel">
+              <div class="section-heading">
+                <div>
+                  <span class="section-number">01</span>
+                  <div><h2>Vidéo source</h2><p>Le point de départ de votre création</p></div>
+                </div>
+                <span class="optional">MP4 · MOV · WEBM</span>
+              </div>
+
+              <input id="videoInput" type="file" accept="video/mp4,video/quicktime,video/webm" hidden />
+              <button id="dropzone" class="dropzone" type="button">
+                <span class="upload-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" />
+                  </svg>
+                </span>
+                <b>Déposez votre vidéo ici</b>
+                <span>ou <u>parcourez vos fichiers</u></span>
+                <small>Jusqu’à 500 Mo · 60 secondes max.</small>
+              </button>
+
+              <div id="videoPreview" class="video-preview hidden">
+                <video id="sourceVideo" playsinline></video>
+                <div class="video-overlay">
+                  <button id="playButton" class="play-button" type="button" aria-label="Lire la vidéo">
+                    <svg viewBox="0 0 24 24"><path d="m9 6 9 6-9 6Z" /></svg>
+                  </button>
+                </div>
+                <div class="video-info">
+                  <div><b id="videoName">video.mp4</b><span id="videoMeta">—</span></div>
+                  <button id="removeVideo" type="button">Remplacer</button>
+                </div>
+              </div>
+
+              <div class="tips">
+                <span class="tip-icon">✦</span>
+                <div>
+                  <b>Pour un résultat optimal</b>
+                  <p>Utilisez une vidéo stable, bien éclairée, avec un sujet clairement visible.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="direction-panel">
+              <div class="section-heading">
+                <div>
+                  <span class="section-number">02</span>
+                  <div><h2>Direction créative</h2><p>Décrivez la transformation souhaitée</p></div>
+                </div>
+              </div>
+
+              <div class="field-label">
+                <label for="prompt">Votre vision</label>
+                <button id="enhancePrompt" type="button"><span>✦</span> Améliorer le prompt</button>
+              </div>
+              <div class="prompt-box">
+                <textarea
+                  id="prompt"
+                  maxlength="600"
+                  placeholder="Ex. Transforme cette scène en film de science-fiction rétrofuturiste, lumière dorée, ambiance cinématographique, mouvements de caméra fluides..."
+                ></textarea>
+                <span id="charCount">0 / 600</span>
+              </div>
+
+              <div class="style-heading">
+                <label>Style visuel</label>
+                <span>Optionnel</span>
+              </div>
+              <div class="style-grid" id="styleGrid">
+                <button class="style-card selected" data-style="Cinématique" type="button">
+                  <span class="style-image cinematic"></span><b>Cinématique</b><i>✓</i>
+                </button>
+                <button class="style-card" data-style="Anime" type="button">
+                  <span class="style-image anime"></span><b>Anime</b><i>✓</i>
+                </button>
+                <button class="style-card" data-style="3D" type="button">
+                  <span class="style-image three-d"></span><b>3D</b><i>✓</i>
+                </button>
+                <button class="style-card" data-style="Aquarelle" type="button">
+                  <span class="style-image watercolor"></span><b>Aquarelle</b><i>✓</i>
+                </button>
+                <button class="style-card" data-style="Cyberpunk" type="button">
+                  <span class="style-image cyberpunk"></span><b>Cyberpunk</b><i>✓</i>
+                </button>
+                <button class="style-card" data-style="Aucun" type="button">
+                  <span class="style-image none"><strong>Ø</strong></span><b>Aucun</b><i>✓</i>
+                </button>
+              </div>
+
+              <div class="settings-row">
+                <div>
+                  <label for="intensity">Intensité</label>
+                  <div class="range-wrap">
+                    <input id="intensity" type="range" min="1" max="100" value="72" />
+                    <output id="intensityValue">72%</output>
+                  </div>
+                </div>
+                <div>
+                  <label>Format</label>
+                  <div class="format-buttons" id="formatButtons">
+                    <button class="selected" type="button">16:9</button>
+                    <button type="button">9:16</button>
+                    <button type="button">1:1</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <footer class="generation-footer">
+            <div class="cost">
+              <span>Coût estimé</span>
+              <b><span class="credit-dot"></span> 32 crédits</b>
+            </div>
+            <button id="generateButton" class="generate-button" type="button" disabled>
+              <span>✦</span>
+              <div><b>Générer ma vidéo</b><small>Environ 2–4 minutes</small></div>
+              <i>→</i>
+            </button>
+          </footer>
+
+          <div id="generationProgress" class="generation-progress hidden" aria-live="polite">
+            <div class="progress-top">
+              <span class="spark">✦</span>
+              <div><b id="progressTitle">Analyse de votre vidéo…</b><small id="progressDetail">Détection des scènes et des mouvements</small></div>
+              <strong id="progressValue">0%</strong>
+            </div>
+            <div class="progress-track"><i id="progressBar"></i></div>
+          </div>
+        </section>
+
+        <section class="inspiration" id="explorer">
+          <div>
+            <span class="eyebrow"><span></span> INSPIRATION</span>
+            <h2>Une vidéo. <em>Des mondes infinis.</em></h2>
+          </div>
+          <p>Découvrez ce que la communauté crée avec MORPH.</p>
+        </section>
+      </main>
+
+      <div id="toast" class="toast" role="status"></div>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
