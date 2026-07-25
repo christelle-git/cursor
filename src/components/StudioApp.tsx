@@ -59,12 +59,6 @@ export function StudioApp() {
     presets.find((p) => p.id === presetId) ?? presets[0];
 
   useEffect(() => {
-    if (!presets.some((p) => p.id === presetId)) {
-      setPresetId(presets[0].id);
-    }
-  }, [presets, presetId]);
-
-  useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
     };
@@ -229,7 +223,13 @@ export function StudioApp() {
                 <button
                   key={m.id}
                   type="button"
-                  onClick={() => setMode(m.id)}
+                  onClick={() => {
+                    setMode(m.id);
+                    const next = modePresets(m.id);
+                    if (!next.some((p) => p.id === presetId)) {
+                      setPresetId(next[0].id);
+                    }
+                  }}
                   className={`border px-4 py-3 text-left transition ${
                     mode === m.id
                       ? "border-tide bg-tide/10"
