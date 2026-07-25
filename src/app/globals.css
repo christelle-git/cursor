@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #10242c;
+  --mist: #e7f1f3;
+  --foam: #f4fafb;
+  --tide: #0f766e;
+  --ember: #d97706;
+  --slate: #5b7380;
+  --background: var(--foam);
+  --foreground: var(--ink);
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-body), sans-serif;
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(15, 118, 110, 0.22);
+  color: var(--ink);
+}
+
+.atmosphere {
+  background:
+    radial-gradient(ellipse 80% 55% at 15% 10%, rgba(45, 212, 191, 0.28), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 90% 20%, rgba(217, 119, 6, 0.18), transparent 50%),
+    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(15, 116, 110, 0.12), transparent 55%),
+    linear-gradient(165deg, #eef7f8 0%, #f7fbfc 45%, #e8f2f4 100%);
+}
+
+.atmosphere::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.07;
+  background-image: var(--grain);
+  mix-blend-mode: multiply;
+  z-index: 50;
+}
+
+.hero-plane {
+  background-image:
+    linear-gradient(120deg, rgba(16, 36, 44, 0.55) 10%, rgba(16, 36, 44, 0.2) 45%, rgba(16, 36, 44, 0.45) 100%),
+    url("https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2400&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.film-edge {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.progress-track {
+  background: linear-gradient(90deg, rgba(15, 118, 110, 0.15), rgba(217, 119, 6, 0.18));
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-md bg-tide px-5 py-3 text-sm font-semibold text-white transition duration-300;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  background: #0d9488;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold text-ink transition duration-300;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(16, 36, 44, 0.1);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.section-space {
+  @apply mx-auto w-full max-w-6xl px-5 md:px-8;
+}
